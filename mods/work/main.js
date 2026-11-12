@@ -160,7 +160,9 @@ async function openSession({ repo, branch, fresh, key, task, space, name }) {
     const hit = trees[branch] ? branch : key ? Object.keys(trees).find((b) => issueKey(b) === key && trees[b] !== repo) : null;
     if (hit) { run("tab.new", { space, name, folder: trees[hit], argv: ["claude", "-c"] }); return; }
     const dir = `${repo}/.worktrees/${branch.replace(/^[^/]+\//, "").replace(/\//g, "-")}`;
-    const steps = fresh ? [["fetch", "origin", "main"], ["worktree", "add", "-b", branch, dir, "origin/main"]] : [["fetch", "origin", branch], ["worktree", "add", dir, branch]];
+    // Repos default to main or dev: start from origin's default branch.
+    const def = fresh ? (await exec("git", ["-C", repo, "rev-parse", "--abbrev-ref", "origin/HEAD"])).stdout.trim() || "origin/main" : null;
+    const steps = fresh ? [["fetch", "origin", def.slice(7)], ["worktree", "add", "--no-track", "-b", branch, dir, def]] : [["fetch", "origin", branch], ["worktree", "add", dir, branch]];
     for (const args of steps) {
       const r = await exec("git", ["-C", repo, ...args], { timeout: 120000 });
       if (r.code !== 0) throw new Error((r.stderr || r.stdout).trim());
