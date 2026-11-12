@@ -216,7 +216,7 @@ export default class Review extends View {
           const prBase = this.pr?.data?.baseRefName;
           for (const ref of [...(prBase ? [`origin/${prBase}`] : []), "origin/HEAD", "origin/main"]) {
             const r = await git(["merge-base", "HEAD", ref]);
-            if (r.code === 0) { base = r.stdout.trim(); this.baseName = ref === "origin/HEAD" ? "origin/main" : ref; break; }
+            if (r.code === 0) { base = r.stdout.trim(); this.baseName = ref === "origin/HEAD" ? (await git(["rev-parse", "--abbrev-ref", "origin/HEAD"])).stdout.trim() || ref : ref; break; }
           }
         }
         const target = base ?? "HEAD";
