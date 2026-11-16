@@ -10,6 +10,11 @@
 !/mods/my-*/
 !/mods/review/
 !/mods/work/
+!/mods/repos/
+!/mods/task/
+!/mods/pr-changes/
+!/mods/auto-changes/
+!/mods/review-branch/
 *.d.ts
 jsconfig.json
 !/README.md

@@ -14,17 +14,23 @@ A Herdr window for working with coding agents:
 | `mods/my-spaces` | Spaces list. A space can link to a Linear project; `cmd-l` opens it in the Linear app |
 | `mods/my-agents` | Agents list. Each row shows its repo, branch, Linear issue and PR (with CI and review state). Sub-agents can open beside the focused pane |
 | `mods/review` | The right sidebar lists changed files. The review tab shows every file's diff in one scroll, with line comments sent to the agent |
-| `mods/work` | The PR pane, the Linear pane and the status bar badge. The badge polls GitHub and Linear and posts PR alerts |
+| `mods/work` | The PR pane (newest update first), the Linear pane and the status bar badge. The badge polls GitHub and Linear and posts PR alerts |
+| `mods/repos` | `cmd-o`: pick a repo and open it in a space with a Claude tab |
+| `mods/task` | `cmd-shift-n`: start a task in a new worktree off the repo's default branch, with an agent |
+| `mods/pr-changes` | A Changes panel with the current PR's diff. It follows the agent's edits live, and a chip row switches between worktrees |
+| `mods/auto-changes` | Opens the Changes panel the first time an agent works in a repo space |
+| `mods/review-branch` | `cmd-g`: paste a branch (its PR) or a worktree path (its uncommitted changes). A Claude tab opens there and reviews it with `ponytail-review` |
 | `keys.json` | Key bindings (see below) |
 | `extras/` | Pieces that live outside Herdr's folder (see Install) |
 
 ## Install
 
-1. Copy `layouts/my-main.json` and the four `mods/` folders into `~/.config/herdr-app/`.
+1. Copy `layouts/my-main.json` and the `mods/` folders into `~/.config/herdr-app/`.
    Merge `keys.json` into yours: add its keys and sections, and don't overwrite keys you already use.
    Then run `herdr-app do layout.switch --name my-main`.
 2. Change the settings to yours:
    - `mods/work/main.js` top: `REPOS_DIR` and `BRANCH_PREFIX`.
+   - `mods/repos/main.js`: `ROOT`. `mods/review-branch/main.js`: `REPOS_DIR` and `OWNER`.
    - `mods/my-agents/main.js`: `LINEAR`, the Linear workspace URL.
 3. Linear: create a personal API key (Linear → Settings → Security & access).
    Run `security add-generic-password -s herdr-linear -a linear -w` and paste the key.
@@ -45,12 +51,18 @@ Or tell your Claude: "add the Herdr setup from this repo".
 |---|---|
 | `cmd-b` / `cmd-shift-b` | Left / right sidebar |
 | `cmd-1..9`, `ctrl-1..9` | Tabs, spaces |
+| `ctrl-tab` / `ctrl-shift-tab` | Next / previous space |
 | `cmd-shift-up` / `down` | Previous / next space |
 | `cmd-left` / `right` | Pane to the left / right |
 | `cmd-r` / `cmd-shift-r` | Rename tab / space |
 | `cmd-t`, `cmd-shift-t` | New tab, new Claude tab |
-| `cmd-w`, `cmd-shift-w` | Close the pane. On a sub-agent, it goes back under its parent and keeps running. Never closes a space's last pane |
+| `cmd-o` | Open a repo |
+| `cmd-shift-n` | New task in a worktree |
+| `cmd-g` | Review a branch's PR, or a worktree's uncommitted changes, in a Claude tab |
+| `cmd-alt-l` | Switch layout |
+| `cmd-w`, `cmd-shift-w` | Close the tab / pane. On a sub-agent, it goes back under its parent and keeps running. Never closes a space's last pane |
 | `cmd-k` | Clear the terminal |
+| `cmd-left` / `right` (in a terminal) | Start / end of the line |
 | `cmd-l` | Open the space's Linear project, or link one |
 | `cmd-shift-g` | Review tab for the focused terminal |
 | `cmd-shift-i` / `cmd-shift-l` | PR pane / Linear pane (again: hide) |

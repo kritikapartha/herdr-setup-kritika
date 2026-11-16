@@ -4,9 +4,19 @@
     "cmd-h": "app.hide",
     "cmd-alt-h": "app.hide_others",
     "cmd-t": "tab.new",
-    "cmd-w": "pane.close",
-    "ctrl-tab": "tab.next",
-    "ctrl-shift-tab": "tab.prev",
+    "cmd-shift-t": {
+      "command": "tab.new",
+      "args": {
+        "argv": [
+          "claude"
+        ]
+      }
+    },
+    "cmd-o": "mod.open:repos",
+    "cmd-shift-n": "mod.open:task",
+    "cmd-w": "tab.close",
+    "ctrl-tab": "space.next",
+    "ctrl-shift-tab": "space.prev",
     "cmd-shift-]": "tab.next",
     "cmd-shift-[": "tab.prev",
     "cmd-alt-]": "space.next",
@@ -14,7 +24,6 @@
     "cmd-]": "agent.next",
     "cmd-[": "agent.prev",
     "cmd-shift-l": "work.linear",
-    "cmd-shift-i": "work.prs",
     "cmd-n": "space.new",
     "cmd-p": "mod.open:picker",
     "cmd-shift-p": "app.palette",
@@ -58,6 +67,7 @@
     "ctrl-7": "space.select:7",
     "ctrl-8": "space.select:8",
     "ctrl-9": "space.select:9",
+    "cmd-shift-i": "work.prs",
     "cmd-r": "tab.rename",
     "cmd-shift-r": "space.rename",
     "cmd-shift-b": "layout.toggle:panel",
@@ -67,8 +77,22 @@
     "cmd-shift-up": "space.prev",
     "cmd-shift-g": "mod.open:review",
     "cmd-l": "mod.open:my-spaces",
-    "cmd-shift-t": { "command": "tab.new", "args": { "argv": ["claude"] } },
-    "cmd-shift-s": "my-agents.beside"
+    "cmd-shift-s": "my-agents.beside",
+    "cmd-alt-l": "layout.switch",
+    "cmd-g": "mod.open:review-branch"
+  },
+  "terminal": {
+    "cmd-f": "terminal.search",
+    "cmd-c": "terminal.copy",
+    "cmd-v": "terminal.paste",
+    "ctrl-v": "terminal.paste_image",
+    "alt-left": "send:\u001bb",
+    "alt-right": "send:\u001bf",
+    "alt-backspace": "send:\u0017",
+    "cmd-left": "send:\u0001",
+    "cmd-right": "send:\u0005",
+    "cmd-backspace": "send:\u0015",
+    "cmd-k": "send:\f"
   },
   "layout:my-main": {
     "cmd-w": "my-agents.close",
@@ -80,16 +104,5 @@
     "cmd-o": "review.open",
     "cmd-e": "review.viewed",
     "cmd-shift-e": "review.only"
-  },
-  "terminal": {
-    "cmd-f": "terminal.search",
-    "cmd-c": "terminal.copy",
-    "cmd-v": "terminal.paste",
-    "ctrl-v": "terminal.paste_image",
-    "alt-left": "send:\u001bb",
-    "alt-right": "send:\u001bf",
-    "alt-backspace": "send:\u0017",
-    "cmd-backspace": "send:\u0015",
-    "cmd-k": "send:\u000c"
   }
 }
