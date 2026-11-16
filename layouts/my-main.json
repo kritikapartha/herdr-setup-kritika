@@ -146,7 +146,9 @@
                       "type": "block",
                       "content": {
                         "mod": "work",
-                        "props": { "view": "prs" }
+                        "props": {
+                          "view": "prs"
+                        }
                       }
                     },
                     {
@@ -154,7 +156,9 @@
                       "type": "block",
                       "content": {
                         "mod": "work",
-                        "props": { "view": "linear" }
+                        "props": {
+                          "view": "linear"
+                        }
                       }
                     }
                   ],
@@ -194,7 +198,9 @@
               "type": "block",
               "content": {
                 "mod": "work",
-                "props": { "view": "badge" }
+                "props": {
+                  "view": "badge"
+                }
               },
               "size": {
                 "px": 380
@@ -219,5 +225,15 @@
   "traffic_lights": [
     12,
     16
+  ],
+  "floating": [
+    {
+      "id": "auto-changes",
+      "content": {
+        "mod": "auto-changes"
+      },
+      "edge": "bottom",
+      "align": "end"
+    }
   ]
 }

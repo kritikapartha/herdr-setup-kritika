@@ -9,8 +9,8 @@ import { v_flex, h_flex } from "gpui-base";
 import { panes, spaces, run, exec, hc, home, theme, shared, setShared, notify, nextCommand, props, openOverlay, closeOverlay, layout } from "herdr";
 
 // Settings: change to yours.
-const REPOS_DIR = "Developer/repos"; // under your home: where your git clones live, named like their GitHub repos
-const BRANCH_PREFIX = "bekzat/"; // Start's new branches: <prefix><issue-key>-<first title words>
+const REPOS_DIR = "cooper-square-technologies"; // under your home: where your git clones live, named like their GitHub repos
+const BRANCH_PREFIX = "kritikapartha/"; // Start's new branches: <prefix><issue-key>-<first title words>
 
 const C = { green: "#3fb950", red: "#f85149", amber: "#d29922", blue: "#388bfd" };
 const REPOS = () => `${home()}/${REPOS_DIR}`;
@@ -361,10 +361,10 @@ export default class Work extends View {
   renderPRs(root, t, cx) {
     const data = shared("work.prs");
     this.loadTrees(data, cx);
-    // Needing you first: CI failed, changes requested, unresolved comments; then the most recently updated.
-    const need = (p) => (FAILED.has(p.ci) ? 4 : 0) + (p.review === "CHANGES_REQUESTED" ? 2 : 0) + (p.unresolved > 0 ? 1 : 0);
-    const open = [...(data?.open ?? [])].sort((a, b) => need(b) - need(a) || (b.updated ?? "").localeCompare(a.updated ?? ""));
-    const merged = data?.merged ?? [];
+    // Most recently updated first (ISO timestamps sort as text).
+    const latest = (a, b) => (b.updated ?? "").localeCompare(a.updated ?? "");
+    const open = [...(data?.open ?? [])].sort(latest);
+    const merged = [...(data?.merged ?? [])].sort(latest);
     return root
       .child(this.header(t, "Pull requests", data, () => refreshPRs(false), "prs"))
       .when(Boolean(data?.error), (e) => e.child(div().px(12).py(6).text_size(11).text_color(C.red).child(data.error)))
